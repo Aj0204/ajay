@@ -1,59 +1,71 @@
 package wiprotraining;
 import java.util.*;
 
-public class Dijkstra {
-    public static int[] dijkstra(int[][] graph, int src) {
-        int n = graph.length;
-        int[] dist = new int[n];
-        boolean[] visited = new boolean[n];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-        dist[src] = 0;
-        PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(node -> node.distance));
-        pq.add(new Node(src, 0));
+class Dijkstra {
+    static class Edge {
+        int targetNode;
+        int weight;
 
-        while (!pq.isEmpty()) {
-            Node current = pq.poll();
-            int u = current.node;
-            if (visited[u]) continue;
-            visited[u] = true;
-            for (int v = 0; v < n; v++) {
-                if (graph[u][v] != 0 && !visited[v]) {
-                    int newDist = dist[u] + graph[u][v];
-                    if (newDist < dist[v]) {
-                        dist[v] = newDist;
-                        pq.add(new Node(v, newDist));
-                    }
+        Edge(int targetNode, int weight) {
+            this.targetNode = targetNode;
+            this.weight = weight;
+        }
+    }
+
+    public static void dijkstra(List<List<Edge>> graph, int startNode) {
+        int numNodes = graph.size();
+        int[] distances = new int[numNodes];
+        boolean[] visited = new boolean[numNodes];
+
+        Arrays.fill(distances, Integer.MAX_VALUE);
+        distances[startNode] = 0;
+
+        PriorityQueue<Edge> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(edge -> edge.weight));
+        priorityQueue.add(new Edge(startNode, 0));
+
+        while (!priorityQueue.isEmpty()) {
+            Edge current = priorityQueue.poll();
+            int currentNode = current.targetNode;
+
+            if (visited[currentNode]) continue;
+            visited[currentNode] = true;
+
+            for (Edge edge : graph.get(currentNode)) {
+                int neighbor = edge.targetNode;
+                int newDist = distances[currentNode] + edge.weight;
+
+                if (newDist < distances[neighbor]) {
+                    distances[neighbor] = newDist;
+                    priorityQueue.add(new Edge(neighbor, newDist));
                 }
             }
         }
 
-        return dist;
-    }
-    static class Node {
-        int node;
-        int distance;
-
-        Node(int node, int distance) {
-            this.node = node;
-            this.distance = distance;
+        System.out.println("Shortest distances from node " + startNode + ":");
+        for (int i = 0; i < numNodes; i++) {
+            System.out.println("To node " + i + ": " + distances[i]);
         }
     }
 
     public static void main(String[] args) {
-        int[][] graph = {
-            {0, 10, 20, 0, 0, 0},
-            {10, 0, 0, 50, 10, 0},
-            {20, 0, 0, 20, 33, 0},
-            {0, 50, 20, 0, 20, 2},
-            {0, 10, 33, 20, 0, 1},
-            {0, 0, 0, 2, 1, 0}
-        };
-        int src = 0;
-        int[] dist = dijkstra(graph, src);
+        int numNodes = 5;
+        List<List<Edge>> graph = new ArrayList<>();
 
-        System.out.println("Shortest distances from node " + src + ":");
-        for (int i = 0; i < dist.length; i++) {
-            System.out.println("To node " + i + " - Distance: " + dist[i]);
+        for (int i = 0; i < numNodes; i++) {
+            graph.add(new ArrayList<>());
         }
+
+        // Add edges (example graph)
+        graph.get(0).add(new Edge(1, 10));
+        graph.get(0).add(new Edge(4, 3));
+        graph.get(1).add(new Edge(2, 2));
+        graph.get(2).add(new Edge(3, 9));
+        graph.get(3).add(new Edge(2, 7));
+        graph.get(4).add(new Edge(1, 1));
+        graph.get(4).add(new Edge(2, 8));
+        graph.get(4).add(new Edge(3, 2));
+
+        int startNode = 0;
+        dijkstra(graph, startNode);
     }
 }
