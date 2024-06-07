@@ -1,0 +1,19 @@
+[10:51 am] Maria (Unverified)
+Task 6: Java 8 Date and Time API
+
+Write a program that calculates the number of days between two dates input by the user."
+
+[10:52 am] Maria (Unverified)
+Task 7: Timezone
+Create a timezone converter that takes a time in one timezone and converts it to another timezone.
+
+Task 1: Establishing Database Connections
+Write a Java program that connects to a MySql database and prints out the connection object to confirm successful connection.
+ 
+Task 2: SQL Queries using JDBC
+Create a table 'User' with a following schema 'User ID' and 'Password' stored as hash format (note you have research on how to generate hash from a string), accept "User ID" and "Password" as input and check in the table if they match to confirm whether user access is allowed or not.
+ 
+Task 3: PreparedStatement
+Modify the SELECT query program to use PreparedStatement to parameterize the query and prevent SQL injection.
+
+has context menu
