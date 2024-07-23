@@ -1,0 +1,60 @@
+
+Recursive function pseudocode :-
+----------------------------------------------------------
+  if a = 1;
+  then eat cookie;
+  else drink glass of milk;
+  select a random integer b with 1 <= b <= a-1
+  MILK(b);
+  MILK(a-b);
+  endif
+
+
+ calculate the nth Fibonacci number:-
+-------------------------------------------------------------------------------
+public class FibonacciCalculator {
+
+  public static int calculateFibonacci(int n) {
+   if (n == 0) {
+      return 0;
+    } else if (n == 1) {
+      return 1;
+    }
+    return calculateFibonacci(n - 1) + calculateFibonacci(n - 2);
+  }
+
+  public static void main(String[] args) {
+    int position = 0;
+    int fibonacciNumber = calculateFibonacci(position);
+    System.out.println("The Fibonacci number at position " + position + " is: " + fibonacciNumber);
+    position = 3;
+    fibonacciNumber = calculateFibonacci(position);
+    System.out.println("\nThe Fibonacci number at position " + position + " is: " + fibonacciNumber);
+    position = 9;
+    fibonacciNumber = calculateFibonacci(position);
+    System.out.println("\nThe Fibonacci number at position " + position + " is: " + fibonacciNumber);
+  }
+}
+
+o/p:
+
+The Fibonacci number at position 0 is: 0
+
+The Fibonacci number at position 3 is: 2
+
+The Fibonacci number at position 9 is: 34
+
+
+compare recursive function  with an iterative approach and discuss the pros and cons in terms of space and time complexity:
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+The main difference between these two is that in recursion, we use function calls to execute the statements repeatedly inside the function body, while in iteration, we use loops like “for” and “while” to do the same.
+
+Iteration is faster and more space-efficient than recursion. So why do we even need recursion? The reason is simple — it's easier to code a recursive approach for a given problem. Try doing inorder tree traversal using recursion and iteration both.
+
+There are O(N) recursive calls in our recursive approach, and each call uses O(1) operations. Thus, the time complexity of factorial using recursion is O(N).
+There are O(N) iterations of the loop in our iterative approach, so its time complexity is also O(N).
+Though both the programs’ theoretical time complexity is the same, a recursive program will take more time to execute due to the overhead of function calls, which is much higher than that of iteration.
+
+In the recursive program, due to each recursive call, some memory gets allocated in the stack to store parameters and local variables. As there are O(N) recursive calls, the space complexity using recursion is O(N).
+No extra memory gets allocated in the iterative program, so its space complexity is O(1).
